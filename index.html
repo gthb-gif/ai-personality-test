@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=2.0">
+  <title>AI使用人格｜二维四型测试</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(145deg, #1a1e2b 0%, #2a3142 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Roboto, 'Noto Sans', system-ui, -apple-system, sans-serif;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 720px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 42px;
+      padding: 30px 28px;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f0f3fa;
+      transition: all 0.3s ease;
+    }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-align: center;
+      background: linear-gradient(135deg, #c0e0ff, #a0c8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+      text-shadow: 0 4px 12px rgba(0,160,255,0.3);
+    }
+    .subhead {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #aab4d9;
+      margin-bottom: 28px;
+      border-bottom: 1px dashed rgba(255,255,255,0.2);
+      padding-bottom: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .subhead span {
+      background: rgba(255,255,255,0.05);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-weight: 500;
+    }
+    .progress-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-weight: 500;
+      color: #cdd6f0;
+    }
+    .progress-text {
+      background: rgba(0,0,0,0.35);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    .question-card {
+      background: rgba(20, 24, 35, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 32px;
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s;
+    }
+    .question-text {
+      font-size: 1.45rem;
+      font-weight: 500;
+      margin-bottom: 28px;
+      line-height: 1.4;
+      color: #eef3ff;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .option-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(6px);
+      font-weight: 400;
+      color: #dce3ff;
+    }
+    .option-item:hover {
+      background: rgba(90, 140, 255, 0.18);
+      border-color: rgba(120, 180, 255, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(0, 120, 255, 0.2);
+    }
+    .option-item.selected {
+      background: rgba(70, 130, 250, 0.35);
+      border-color: #7aaaff;
+      box-shadow: 0 0 20px rgba(80, 150, 255, 0.5);
+      font-weight: 500;
+      color: white;
+    }
+    .option-letter {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #bcc6ff;
+      min-width: 24px;
+      text-align: center;
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+    .option-text {
+      font-size: 1rem;
+      flex: 1;
+      line-height: 1.4;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    button {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 14px 28px;
+      border-radius: 36px;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.8px;
+      color: #e0e8ff;
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex: 1;
+      background: rgba(30, 35, 50, 0.7);
+    }
+    button:hover:not(:disabled) {
+      background: rgba(90, 130, 240, 0.5);
+      border-color: #9bbaff;
+      box-shadow: 0 6px 18px rgba(0, 160, 255, 0.4);
+      color: white;
+    }
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: rgba(40, 40, 50, 0.5);
+      border-color: rgba(255,255,255,0.1);
+    }
+    .result-panel {
+      background: rgba(10, 14, 23, 0.8);
+      backdrop-filter: blur(20px);
+      border-radius: 36px;
+      padding: 28px 24px;
+      margin-top: 18px;
+      border: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+    .result-type {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin: 10px 0 6px;
+    }
+    .result-emoji {
+      font-size: 3.5rem;
+      margin-bottom: 4px;
+    }
+    .quadrant-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 12px;
+      margin: 20px 0 16px;
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      border-radius: 24px;
+      padding: 16px 10px;
+    }
+    .quad-cell {
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: 14px 8px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .quad-cell.highlight {
+      border-color: #ffdd57;
+      background: rgba(255, 220, 80, 0.18);
+      box-shadow: 0 0 28px rgba(255, 200, 50, 0.5);
+      transform: scale(1.03);
+      z-index: 2;
+    }
+    .quad-cell .cell-emoji {
+      font-size: 2rem;
+    }
+    .axis-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #94a3c8;
+      margin: 4px 6px 0;
+    }
+    .desc-text {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #ccd6f0;
+      margin: 16px 0;
+    }
+    .score-summary {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin: 10px 0;
+      font-weight: 500;
+      background: rgba(0,0,0,0.3);
+      padding: 10px 16px;
+      border-radius: 30px;
+    }
+    .restart-btn {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.1);
+      width: auto;
+      display: inline-flex;
+      padding: 12px 32px;
+    }
+    .hidden {
+      display: none;
+    }
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px 16px;
+      }
+      .question-text {
+        font-size: 1.2rem;
+      }
+      .quadrant-grid {
+        gap: 6px;
+        padding: 10px 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="appContainer">
+  <h1>AI 使用人格·二维分析</h1>
+  <div class="subhead">
+    <span>卷度 × 心态</span>
+    <span>四种人格类型</span>
+  </div>
+  <div id="dynamicContent"></div>
+</div>
+
+<script>
+  (function() {
+    // 四个类型标记（不显示给用户）
+    // MS = 战略大师 (高卷 × 主动)
+    // AH = 焦虑仓鼠 (高卷 × 被动)
+    // SL = 精选懒人 (低卷 × 主动)
+    // WD = 随风摆烂 (低卷 × 被动)
+    const questions = [
+      {
+        id: 0,
+        text: "你打开AI助手时，通常带着什么状态？",
+        options: [
+          { trait: "MS", text: "有明确的目标，知道要优化什么，AI是我实现想法的工具" },
+          { trait: "AH", text: "赶紧看看别人在用AI做什么，生怕落后，我也得跟上" },
+          { trait: "SL", text: "有一个模糊需求，但懒得自己动手，让AI给我几个精准选项" },
+          { trait: "WD", text: "没啥特别目的，随便逛逛，AI推荐啥我就试试啥" }
+        ]
+      },
+      {
+        id: 1,
+        text: "面对AI给出的答案，你的反应更接近？",
+        options: [
+          { trait: "MS", text: "把它当作初稿，我会深度修改、加入自己的判断和风格" },
+          { trait: "AH", text: "赶紧复制使用，但内心总担心是不是还有更好的prompt没试" },
+          { trait: "SL", text: "评估一下能不能用，能用就收工，不能就精准调整一次" },
+          { trait: "WD", text: "看起来还行就直接用了，没想过要改" }
+        ]
+      },
+      {
+        id: 2,
+        text: "学习新领域时，你怎么用AI？",
+        options: [
+          { trait: "MS", text: "我制定学习目标，让AI生成结构化路径和刻意练习材料" },
+          { trait: "AH", text: "搜一堆「最强学习prompt」，每个都试，焦虑地收集资源" },
+          { trait: "SL", text: "只学我需要的部分，让AI帮我提炼核心，其余不碰" },
+          { trait: "WD", text: "AI推送什么课程或总结就看什么，没有具体计划" }
+        ]
+      },
+      {
+        id: 3,
+        text: "AI产出有错误时，你通常怎么做？",
+        options: [
+          { trait: "MS", text: "分析错误原因，调整prompt策略，把它当作优化思维的机会" },
+          { trait: "AH", text: "马上怀疑自己的prompt不够好，去搜别人的模板重新试" },
+          { trait: "SL", text: "判断这个错误是否影响我的核心需求，不影响就忽略" },
+          { trait: "WD", text: "没注意到有错，或者注意到了但觉得差不多就行" }
+        ]
+      },
+      {
+        id: 4,
+        text: "关于个人效率提升，你更符合哪种？",
+        options: [
+          { trait: "MS", text: "用AI自动化重复任务，释放时间投入高价值创造" },
+          { trait: "AH", text: "拼命用AI加速所有事情，但任务反而越积越多" },
+          { trait: "SL", text: "只优化那些让我烦的事情，能省力就省力，不追求极致" },
+          { trait: "WD", text: "没刻意想过效率问题，AI怎么方便怎么来" }
+        ]
+      },
+      {
+        id: 5,
+        text: "看到别人分享厉害的AI用法，你的反应是？",
+        options: [
+          { trait: "MS", text: "分析是否适合我的体系，适合就吸收，不适合就略过" },
+          { trait: "AH", text: "立刻收藏，感到焦虑，觉得自己又落后了" },
+          { trait: "SL", text: "如果它能帮我省力就试试，太复杂就算了" },
+          { trait: "WD", text: "随便看看，过后就忘了，继续按原来的方式" }
+        ]
+      },
+      {
+        id: 6,
+        text: "你写报告或重要文档时，AI的角色是？",
+        options: [
+          { trait: "MS", text: "AI提供框架和数据，我主导观点和最终表达" },
+          { trait: "AH", text: "反复让AI生成多个版本，纠结哪个最好，难以决定" },
+          { trait: "SL", text: "让AI写主体，我只改关键部分，快速交付" },
+          { trait: "WD", text: "AI生成什么我就用什么，格式都不一定调" }
+        ]
+      },
+      {
+        id: 7,
+        text: "面对AI伦理或依赖性问题，你的态度是？",
+        options: [
+          { trait: "MS", text: "我有意识地保持自主思考，AI是工具而非替代品" },
+          { trait: "AH", text: "担心过度依赖但又不敢不用，怕被时代抛弃" },
+          { trait: "SL", text: "能帮我省事就行，不太想思考哲学问题" },
+          { trait: "WD", text: "没想过这个问题，随大流就好" }
+        ]
+      },
+      {
+        id: 8,
+        text: "周末想学点东西，你会如何使用AI？",
+        options: [
+          { trait: "MS", text: "让AI生成高强度学习路径+实战项目，自我挑战" },
+          { trait: "AH", text: "疯狂收藏学习资源，但学不完，越学越焦虑" },
+          { trait: "SL", text: "让AI用最简单的方式讲个大概，够用就行" },
+          { trait: "WD", text: "打开AI随便问几个问题，然后刷视频去了" }
+        ]
+      },
+      {
+        id: 9,
+        text: "AI对于你，最贴切的比喻是什么？",
+        options: [
+          { trait: "MS", text: "外置大脑+超级教练，用来扩展我的能力边界" },
+          { trait: "AH", text: "救命稻草，不用就心慌，用了也心慌" },
+          { trait: "SL", text: "贴心管家，帮我处理不想做的琐事" },
+          { trait: "WD", text: "随缘工具，有就用，没有也行" }
+        ]
+      }
+    ];
+
+    // ── 打乱题目顺序（Fisher–Yates 洗牌）──
+    function shuffleArray(arr) {
+      const a = arr.slice(); // 浅拷贝
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // 每次加载页面时随机打乱题目顺序
+    const shuffledQuestions = shuffleArray(questions);
+    const totalQuestions = shuffledQuestions.length;
+
+    let currentIndex = 0;
+    let answers = new Array(totalQuestions).fill(null); // 存储每题的 trait
+    let quizCompleted = false;
+
+    const dynamicContent = document.getElementById('dynamicContent');
+
+    // 选项字母标签
+    const optionLetters = ['A', 'B', 'C', 'D'];
+
+    function renderQuestion(index) {
+      if (index < 0 || index >= totalQuestions) return;
+      const q = shuffledQuestions[index];
+      const selectedTrait = answers[index];
+
+      let optionsHtml = '';
+      q.options.forEach((opt, optIndex) => {
+        const isSelected = (selectedTrait === opt.trait);
+        optionsHtml += `
+          <div class="option-item ${isSelected ? 'selected' : ''}" data-trait="${opt.trait}">
+            <span class="option-letter">${optionLetters[optIndex]}.</span>
+            <span class="option-text">${opt.text}</span>
+          </div>
+        `;
+      });
+
+      const html = `
+        <div class="progress-area">
+          <span class="progress-text">第 ${index+1} / ${totalQuestions} 题</span>
+          <span style="color:#aab4d9;">📌 选择最贴近你的选项</span>
+        </div>
+        <div class="question-card">
+          <div class="question-text">${q.text}</div>
+          <div class="options-grid" id="optionsContainer">
+            ${optionsHtml}
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button id="prevBtn" ${index === 0 ? 'disabled' : ''}>◀ 上一题</button>
+          <button id="nextBtn" ${answers[index] === null ? 'disabled' : ''}>
+            ${index === totalQuestions-1 ? '完成测评 🎯' : '下一题 ▶'}
+          </button>
+        </div>
+      `;
+
+      dynamicContent.innerHTML = html;
+      attachOptionEvents();
+      attachNavEvents(index);
+    }
+
+    function attachOptionEvents() {
+      const options = document.querySelectorAll('.option-item');
+      options.forEach(opt => {
+        opt.addEventListener('click', function(e) {
+          const trait = this.dataset.trait;
+          if (!trait) return;
+          answers[currentIndex] = trait;
+          renderQuestion(currentIndex);
+        });
+      });
+    }
+
+    function attachNavEvents(index) {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          if (currentIndex > 0) {
+            currentIndex--;
+            renderQuestion(currentIndex);
+          }
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          if (answers[currentIndex] === null) return;
+          if (currentIndex === totalQuestions - 1) {
+            completeQuiz();
+          } else {
+            currentIndex++;
+            renderQuestion(currentIndex);
+          }
+        });
+      }
+    }
+
+    function calculateScores() {
+      let countMS = 0, countAH = 0, countSL = 0, countWD = 0;
+      answers.forEach(ans => {
+        if (ans === 'MS') countMS++;
+        else if (ans === 'AH') countAH++;
+        else if (ans === 'SL') countSL++;
+        else if (ans === 'WD') countWD++;
+      });
+      const volScore = countMS + countAH;
+      const lazyScore = countSL + countWD;
+      const activeScore = countMS + countSL;
+      const passiveScore = countAH + countWD;
+      return { countMS, countAH, countSL, countWD, volScore, lazyScore, activeScore, passiveScore };
+    }
+
+    function getPersonalityResult(scores) {
+      const { countMS, countAH, countSL, countWD } = scores;
+      const maxCount = Math.max(countMS, countAH, countSL, countWD);
+      let primaryType = '';
+      if (maxCount === countMS) primaryType = 'MS';
+      else if (maxCount === countAH) primaryType = 'AH';
+      else if (maxCount === countSL) primaryType = 'SL';
+      else primaryType = 'WD';
+
+      const typeData = {
+        MS: {
+          title: '战略大师',
+          emoji: '🧠',
+          desc: '你使用AI时既有清晰的方向感，又不懈追求卓越。AI是你能力的延伸，你始终掌握主动权，用AI打磨思维、优化产出。你不盲目卷，而是有策略地高效进化。在你的世界里，AI是工具，你才是主人。',
+          highlightCell: 'cell-ms'
+        },
+        AH: {
+          title: '焦虑仓鼠',
+          emoji: '🐹',
+          desc: '你拼命用AI提升自己，但驱动力更多来自FOMO（害怕落后）。你容易陷入"收集-焦虑-再收集"的循环，不断尝试新工具新方法，却缺乏自己的判断体系。你卷得很辛苦，但需要停下来问问自己：到底在为什么而卷？',
+          highlightCell: 'cell-ah'
+        },
+        SL: {
+          title: '精选懒人',
+          emoji: '🦥',
+          desc: '你懒得有智慧。不追求用AI做更多事，而是精准地用AI做对的事。你能清晰判断什么值得投入精力，什么可以省力跳过。你主动选择"懒"，而不是被动摆烂。这种高效的慵懒，是一种难得的清醒。',
+          highlightCell: 'cell-sl'
+        },
+        WD: {
+          title: '随风摆烂',
+          emoji: '🍃',
+          desc: '你对AI没有强烈的掌控欲，也没有卷的动力。AI推什么你就接受什么，随遇而安。这种状态让你轻松，但也可能错失成长机会。你不是不会卷，只是还没找到值得卷的方向——或者你本来就享受这种自由。',
+          highlightCell: 'cell-wd'
+        }
+      };
+
+      return { ...typeData[primaryType], primaryType, ...scores };
+    }
+
+    function completeQuiz() {
+      quizCompleted = true;
+      const scores = calculateScores();
+      const result = getPersonalityResult(scores);
+
+      const resultHtml = `
+        <div class="result-panel">
+          <div class="result-emoji">${result.emoji}</div>
+          <div class="result-type">${result.title}</div>
+          
+          <div class="score-summary">
+            <span>⚡ 卷度：${result.volScore}/10</span>
+            <span>🛋️ 懒度：${result.lazyScore}/10</span>
+            <span>🧭 主动：${result.activeScore}/10</span>
+            <span>🍃 被动：${result.passiveScore}/10</span>
+          </div>
+
+          <div style="font-weight:600; margin-top:12px; color:#cdd6f0;">📐 人格象限定位</div>
+          <div class="quadrant-grid">
+            <div class="quad-cell ${result.primaryType==='MS'?'highlight':''}" id="cell-ms">
+              <span class="cell-emoji">🧠</span>
+              <span>战略大师</span>
+              <span style="font-size:0.75rem; color:#bcc6e0;">高卷 · 主动</span>
+            </div>
+            <div class="quad-cell ${result.primaryType==='AH'?'highlight':''}" id="cell-ah">
+              <span class="cell-emoji">🐹</span>
+              <span>焦虑仓鼠</span>
+              <span style="font-size:0.75rem; color:#bcc6e0;">高卷 · 被动</span>
+            </div>
+            <div class="quad-cell ${result.primaryType==='SL'?'highlight':''}" id="cell-sl">
+              <span class="cell-emoji">🦥</span>
+              <span>精选懒人</span>
+              <span style="font-size:0.75rem; color:#bcc6e0;">低卷 · 主动</span>
+            </div>
+            <div class="quad-cell ${result.primaryType==='WD'?'highlight':''}" id="cell-wd">
+              <span class="cell-emoji">🍃</span>
+              <span>随风摆烂</span>
+              <span style="font-size:0.75rem; color:#bcc6e0;">低卷 · 被动</span>
+            </div>
+          </div>
+          <div class="axis-labels">
+            <span>← 主动掌控</span>
+            <span>被动依赖 →</span>
+          </div>
+          <div style="display:flex; justify-content:center; gap:8px; font-size:0.75rem; color:#94a3c8; margin-top:2px;">
+            <span>↑ 高卷</span><span style="margin:0 20px;"></span><span>↓ 低卷</span>
+          </div>
+
+          <div class="desc-text">
+            ${result.desc}
+          </div>
+          <button id="restartBtn" class="restart-btn">↺ 重新测试</button>
+        </div>
+      `;
+
+      dynamicContent.innerHTML = resultHtml;
+      document.getElementById('restartBtn').addEventListener('click', restartQuiz);
+    }
+
+    function restartQuiz() {
+      currentIndex = 0;
+      answers = new Array(totalQuestions).fill(null);
+      quizCompleted = false;
+      // 重新洗牌，让每次测试题目顺序都不同
+      const newShuffled = shuffleArray(questions);
+      // 用新顺序替换 shuffledQuestions 的内容
+      shuffledQuestions.length = 0;
+      Array.prototype.push.apply(shuffledQuestions, newShuffled);
+      renderQuestion(0);
+    }
+
+    renderQuestion(0);
+  })();
+</script>
+</body>
+</html>
